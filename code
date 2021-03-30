@@ -1,0 +1,16 @@
+import pandas as pd
+import numpy as npfrom numpy.linalg import inv
+df=pd.read_csv("USA_Housing.csv")
+df.isnull().sum()
+x1=df["Avg. Area Income"]
+x2=df["Avg. Area House Age"]
+x3=df["Avg. Area Number of Rooms"]
+x4=df["Avg. Area Number of Bedrooms"]
+x5=df["Area Population"]
+out=df["price"]
+X=np.array([np.ones(len(df)),x1,x2,x3,x4,x5]).T
+b=inv(X.T.dot(X)).dot(X.T).dot(out)
+print("The estimates are" ,"\n","b0 :",b[0],"\n" 
+,"b1:",b[1],"\n","b2:",b[2],"\n","b3:",b[3],"\n","b4:",b[4],"\n","b5:",b[5])
+y_pred=X.dot(b)
+print("The predicted output :", y_pred)
